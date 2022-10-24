@@ -55,5 +55,8 @@
       "pre-commit": "lint-staged",
       "commit-mesg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "lint-staged": {
+    "*.{js,css,md,ts,tsx}": "prettier --write"
   }
 }
