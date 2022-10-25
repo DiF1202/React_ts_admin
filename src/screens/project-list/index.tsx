@@ -13,15 +13,13 @@ const ProjectListScreen = () => {
   });
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
-  const debounceParam = useDebounce(param, 2000);
+  const debounceParam = useDebounce(param, 200);
 
   useEffect(() => {
     fetch(
       `${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`
     ).then(async (response) => {
       if (response.ok) {
-        // console.log(response);
-        // console.log(apiUrl);
         setList(await response.json());
       }
     });
@@ -39,7 +37,7 @@ const ProjectListScreen = () => {
     <div>
       <SearchPanel
         users={users}
-        params={param}
+        param={param}
         setParam={setParam}></SearchPanel>
       <List users={users} list={list}></List>
     </div>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: any) => (value === 0 ? false : !value);
 
 // 在一个函数,改变传入的对象本身是不好的
-export const cleanObject = (object) => {
+export const cleanObject = (object: any) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
     const value = result[key];
@@ -15,14 +15,14 @@ export const cleanObject = (object) => {
   return result;
 };
 
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
     // eslint-disable-next-line
   }, []);
 };
 
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: any, delay?: number) => {
   const [dedouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     //每次在value变化以后,设置一个定时器
