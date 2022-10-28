@@ -6,7 +6,7 @@ import * as qs from "qs";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const ProjectListScreen = () => {
+export const ProjectListScreen = () => {
   const [param, setParam] = useState({
     name: "",
     personId: "",
@@ -43,5 +43,3 @@ const ProjectListScreen = () => {
     </div>
   );
 };
-
-export default ProjectListScreen;
