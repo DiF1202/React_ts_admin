@@ -13,7 +13,7 @@ const bootstrapUser = async () => {
   const token = auth.getToken();
 
   if (token) {
-    const data = await http("me", { token });
+    const { data } = await http("me", { token });
     user = data.user;
   }
   return user;
@@ -50,15 +50,4 @@ export const useAuth = () => {
     throw new Error("useAuth必须在AuthProvider中使用");
   }
   return context;
-};
-
-// 如何让小明里面的属性都是可以选的？
-type Person = {
-  name: string;
-  age: number;
-};
-
-const xiaoming: Person = {
-  name: "aa",
-  age: 1,
 };
