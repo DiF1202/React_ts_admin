@@ -16,7 +16,7 @@ const LoginScreen = () => {
         <Input type="text" placeholder="用户名" id="username" />
       </Form.Item>
       <Form.Item name="password" rules={[{ required: true, message: "请输入密码" }]}>
-        <Input type="text" placeholder="密码" id="password" />
+        <Input type="password" placeholder="密码" id="password" />
       </Form.Item>
       <Form.Item></Form.Item>
       <Button htmlType={"submit"} type="primary">

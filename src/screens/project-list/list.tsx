@@ -18,18 +18,21 @@ interface ListProps {
 const List = ({ list, users }: ListProps) => {
   return (
     <Table
+      rowKey={"id"}
       pagination={false}
       dataSource={list}
       columns={[
         {
+          key: "name",
           title: "名称",
           dataIndex: "name",
           sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
+          key: "zhichen",
           title: "负责人",
           render(value, project) {
-            return <span>{users.find((user) => user.id === project.personId)?.name || "未知"}</span>;
+            return <span key={project.personId}>{users.find((user) => user.id === project.personId)?.name || "未知"}</span>;
           },
         },
       ]}

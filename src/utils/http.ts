@@ -1,9 +1,9 @@
 import qs from "qs";
-import * as auth from "auth-provider";
+// import * as auth from "auth-provider";
 import { useAuth } from "screens/context/auth-context";
 import axios from "axios";
 // import { AuthProvider } from "screens/context/auth-context";
-// import { useCallback } from "react";
+import { useCallback } from "react";
 // import { type } from "os";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -24,31 +24,35 @@ export const http = async (endpoint: string, { data, token, headers, ...customCo
   if (config.method.toUpperCase() === "GET") {
     endpoint += `?${qs.stringify(data)}`;
     if (endpoint === "me?") {
+      console.log(axios.get(`${apiUrl}/${endpoint}`, config as any));
       // eslint-disable-next-line
+      return axios.get(`${apiUrl}/${endpoint}`, config as any);
+    } else if (endpoint === "users?") {
       return axios.get(`${apiUrl}/${endpoint}`, config as any);
     }
   } else {
     (config as any).body = JSON.stringify(data || {});
   }
-  return window.fetch(`${apiUrl}/${endpoint}`, config).then(async (response) => {
-    // return response.data;
-    if (response.status === 401) {
-      auth.logout();
-      window.location.reload();
-      return Promise.reject({
-        message: "请重新登录",
-      });
-    }
-    const data = await response.json();
-    if (response.ok) {
-      return data;
-    } else {
-      return Promise.reject(data);
-    }
-  });
+  // return window.fetch(`${apiUrl}/${endpoint}`, config).then(async (response) => {
+  //   if (response.status === 401) {
+  //     auth.logout();
+  //     window.location.reload();
+  //     return Promise.reject({
+  //       message: "请重新登录",
+  //     });
+  //   }
+  //   const data = await response.json();
+  //   if (response.ok) {
+  //     return data;
+  //   } else {
+  //     return Promise.reject(data);
+  //   }
+  // });
+  return axios.get(`${apiUrl}/${endpoint}`, config as any);
 };
 
 export const useHttp = () => {
   const { user } = useAuth();
-  return (...[endpoint, config]: Parameters<typeof http>) => http(endpoint, { ...config, token: user?.token });
+  // utility type 的用法：用泛型给它传入一个其他类型，然后utility type对这个类型进行某种操作
+  return useCallback((...[endpoint, config]: Parameters<typeof http>) => http(endpoint, { ...config, token: user?.token }), [user?.token]);
 };

@@ -18,12 +18,16 @@ export const ProjectListScreen = () => {
   const client = useHttp();
 
   useEffect(() => {
-    client("projects", { data: cleanObject(debounceParam) }).then(setList);
+    client("projects", { data: cleanObject(debounceParam) }).then((res) => {
+      setList(res?.data);
+    });
     // eslint-disable-next-line
   }, [debounceParam]);
 
   useMount(() => {
-    client("users").then(setUsers);
+    client("users").then((res) => {
+      setUsers(res?.data);
+    });
   });
 
   return (

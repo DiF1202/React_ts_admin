@@ -7,7 +7,7 @@ html {
   font-size: 62.5%;
 }
 
-/*viewport height === vh*/
+/*viewp rt height === vh*/
 html body #root .App {
   min-height: 100vh;
 }
