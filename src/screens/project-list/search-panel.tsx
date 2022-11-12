@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React from "react";
-import { Input, Select } from "antd";
+import { jsx } from "@emotion/react";
+import { Input, Select, Form } from "antd";
 export interface User {
   id: string;
   name: string;
@@ -20,9 +22,10 @@ interface SearchPanelProps {
 
 const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <form>
-      <div>
+    <Form css={{ marginBottom: "2rem" }} layout={"inline"}>
+      <Form.Item>
         <Input
+          placeholder={"项目名"}
           type="text"
           value={param?.name}
           onChange={(e) =>
@@ -32,6 +35,8 @@ const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             })
           }
         />
+      </Form.Item>
+      <Form.Item>
         <Select
           value={param?.personId}
           onChange={(value) =>
@@ -47,8 +52,8 @@ const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             </Select.Option>
           ))}
         </Select>
-      </div>
-    </form>
+      </Form.Item>
+    </Form>
   );
 };
 

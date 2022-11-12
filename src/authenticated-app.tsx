@@ -3,6 +3,8 @@ import { ProjectListScreen } from "screens/project-list/index";
 import { useAuth } from "screens/context/auth-context";
 import { Row } from "components/lib";
 import styled from "@emotion/styled";
+import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
+import { Button, Dropdown, Menu } from "antd";
 
 /**
  * grid 和 flex 各自的应用场景
@@ -19,17 +21,30 @@ import styled from "@emotion/styled";
 // prop drilling
 
 export const AuthenticatedApp = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Container>
       <Header between={true}>
         <HeaderLeft gap={true}>
-          <h3>Logo</h3>
+          <SoftwareLogo width={"18rem"} color={"rgb(38, 132, 255)"} />
           <h3>项目</h3>
           <h3>用户</h3>
         </HeaderLeft>
         <HeaderRight>
-          <button onClick={logout}>登出</button>
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item key={"logout"}>
+                  <Button onClick={logout} type={"link"}>
+                    登出
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }>
+            <Button type={"link"} onClick={(e) => e.preventDefault()}>
+              Hi, {user?.name}
+            </Button>
+          </Dropdown>
         </HeaderRight>
       </Header>
       <Main>
@@ -62,6 +77,9 @@ const Container = styled.div`
 // grid-area 用来给grid子元素起名字
 const Header = styled(Row)`
   grid-area: header;
+  padding: 3.2rem;
+  z-index: 1;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 `;
 
 const HeaderLeft = styled(Row)``;
